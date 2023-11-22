@@ -55,4 +55,75 @@ class BlogController extends BaseController
             \Log::error('Error al procesar la solicitud', ['error' => $e->getMessage()]);
             return $this->sendError('Error al procesar la solicitud', ['error' => $e->getMessage()], 500);
         }}
+    /*
+        public function update(Request $request, $id)
+        {
+            $input = $request->all();
+            $validator = Validator::make($input, [
+                'title' => 'required',
+                'photo' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+                'date' => 'required',
+                'description' => 'required',
+                'author' => 'required',
+            ]);
+        
+            if ($validator->fails()) {
+                return $this->sendError($validator->errors());
+            }
+        
+            // Buscar la publicación por ID
+            $blog = Blog::find($id);
+        
+            if (empty($blog)) {
+                return $this->sendError('Blog no encontrado');
+            }
+        
+            // Actualizar la publicación con los nuevos datos
+            $blog->update($input);
+        
+            return $this->sendResponse(new BlogResource($blog), 'Blog updated.');
+        }
+*/
+        public function update(Request $request, $id)
+        {
+
+            \Log::info('Solicitud de actualización recibida para el ID: ' . $id);
+            try {
+                $blog = Blog::find($id);
+        
+                if (is_null($blog)) {
+                    return $this->sendError('Post does not exist.');
+                }
+        
+                $input = $request->all();
+        
+                $validator = Validator::make($input, [
+                    'title' => 'required',
+                    'photo' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+                    'date' => 'required',
+                    'description' => 'required',
+                    'author' => 'required',
+                ]);
+        
+                if ($validator->fails()) {
+                    return $this->sendError($validator->errors());
+                }
+        
+                // Si hay una nueva imagen, subirla y actualizar la ruta en la base de datos
+                if ($request->hasFile('photo')) {
+                    $photoPath = $request->file('photo')->store('imgs', 'public');
+                    $input['photo'] = $photoPath;
+                }
+        
+                // Actualizar el post
+                $blog->update($input);
+        
+                return $this->sendResponse(new BlogResource($blog), 'Post actualizado.');
+            } catch (\Exception $e) {
+                \Log::error('Error al procesar la solicitud', ['error' => $e->getMessage()]);
+                return $this->sendError('Error al procesar la solicitud', ['error' => $e->getMessage()], 500);
+            }
+        }
+        
+    
     }

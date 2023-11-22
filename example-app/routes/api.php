@@ -19,8 +19,9 @@ Route::get('publicacion/index/{postId}', [PublicacionController::class, 'show'])
 Route::put('publicacion/update/{id}', [PublicacionController::class,'update']);
 Route::get('blog/index/{postId}', [BlogController::class,'show']);
 Route::get('blog/index', [BlogController::class,'index']);
-
 Route::post('blog/store', [BlogController::class, 'store']);
+Route::put('blog/update/{id}', [BlogController::class, 'update']);
+
 
 //AUTENTICACIÓN
 Route::middleware('auth:sanctum')->group( function () {
