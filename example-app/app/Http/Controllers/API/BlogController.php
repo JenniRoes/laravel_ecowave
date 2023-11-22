@@ -31,7 +31,7 @@ class BlogController extends BaseController
             $input = $request->all();
             $validator = Validator::make($input, [
                 'title' => 'required',
-                'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048', 
+                'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg, webp|max:2048',
                 'date' => 'required',
                 'description' => 'required',
                 'author' => 'required'
@@ -54,7 +54,9 @@ class BlogController extends BaseController
         } catch (\Exception $e) {
             \Log::error('Error al procesar la solicitud', ['error' => $e->getMessage()]);
             return $this->sendError('Error al procesar la solicitud', ['error' => $e->getMessage()], 500);
-        }}
+        }
+    }
+    
     /*
         public function update(Request $request, $id)
         {
