@@ -27,7 +27,7 @@ class PublicacionController extends BaseController
                 'description' => 'required',
                 'author' => 'required',
                 'ubication' => 'required',
-                'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg, webp|max:2048'
+                'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048'
             ]);
             if ($validator->fails()) {
                 return $this->sendError($validator->errors());
