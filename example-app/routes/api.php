@@ -21,7 +21,7 @@ Route::get('blog/index/{postId}', [BlogController::class,'show']);
 Route::get('blog/index', [BlogController::class,'index']);
 Route::post('blog/store', [BlogController::class, 'store']);
 Route::put('blog/update/{id}', [BlogController::class, 'update']);
-
+Route::delete('publicacion/delete/{id}', [PublicacionController::class,'destroy']);
 
 //AUTENTICACIÓN
 Route::middleware('auth:sanctum')->group( function () {
