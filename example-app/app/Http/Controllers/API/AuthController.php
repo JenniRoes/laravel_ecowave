@@ -33,7 +33,7 @@ class AuthController extends BaseController
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
             'password' => 'required',
             'confirm_password' => 'required|same:password',
         ]);
@@ -119,7 +119,14 @@ class AuthController extends BaseController
         }
     }
 
-
+    public function checkEmail(Request $request)
+    {
+        $email = $request->input('email');
+    
+        // Lógica para verificar si el correo electrónico ya existe en la base de datos
+    
+        return response()->json(['exists' => true]);  // Ejemplo de respuesta si el correo existe
+    }
 
    
 }

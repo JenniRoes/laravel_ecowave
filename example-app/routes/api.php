@@ -15,6 +15,9 @@ Route::post('register', [AuthController::class, 'signup']);
 Route::get('publicacion/index', [PublicacionController::class, 'index']);//ver todas publicaciones sin tener usuario
 Route::post('/recoverpassword', [AuthController::class, 'recoverPassword']);
 Route::get('/publicacion/searchbykeyword', [AuthController::class, 'searchByKeyword']);
+Route::get('/check-email', [AuthController::class, 'checkEmail']);
+
+
 Route::get('publicacion/index/{postId}', [PublicacionController::class, 'show']);
 Route::put('publicacion/update/{id}', [PublicacionController::class,'update']);
 Route::get('blog/index/{postId}', [BlogController::class,'show']);
