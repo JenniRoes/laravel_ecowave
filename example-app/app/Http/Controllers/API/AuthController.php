@@ -125,7 +125,7 @@ class AuthController extends BaseController
     
         // Lógica para verificar si el correo electrónico ya existe en la base de datos
     
-        return response()->json(['exists' => true]);  // Ejemplo de respuesta si el correo existe
+        return response()->json(['exists' => false]);  // Ejemplo de respuesta si el correo existe
     }
 
    
