@@ -11,6 +11,14 @@ class Save extends Model
 
     protected $fillable = [
         'users_id',
-        'publicacions_id'
-    ];    
+        'publicacions_id',
+        'title',
+        'description'
+    ];
+
+    public function publicacion()
+{
+    return $this->belongsTo(Publicacion::class, 'publicacions_id');
+}
+
 }

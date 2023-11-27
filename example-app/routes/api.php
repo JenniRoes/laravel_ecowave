@@ -33,6 +33,7 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::post('publicacion/save/store', [SaveController::class, 'store']);//Guardar publicacion en perfil
     Route::get('publicacion/save/index', [SaveController::class, 'index']);//ver todos en guardados en perfil
     Route::post('/logout', [AuthController::class, 'logout']);//Hacer logout
+    Route::get('user/id', [AuthController::class, 'getUserId']);
     
     //https://olodocoder.hashnode.dev/laravel-api-series-laravel-sanctum-setup-sign-up-login-and-logout
 });

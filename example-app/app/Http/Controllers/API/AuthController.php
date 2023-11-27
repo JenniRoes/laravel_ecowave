@@ -128,5 +128,18 @@ class AuthController extends BaseController
         return response()->json(['exists' => false]);  // Ejemplo de respuesta si el correo existe
     }
 
+    public function getUserId()
+    {
+        
+        if (Auth::check()) {
+           
+            $userId = Auth::id();
+
+            return $this->sendResponse(['id' => $userId], 'ID del usuario obtenido correctamente.');
+        }
+
+        return $this->sendError('Usuario no autenticado.', [], 401);
+    }
+
    
 }

@@ -15,20 +15,26 @@ class SaveController extends BaseController
         $saves = Save::all();
         return $this->sendResponse(SaveResource::collection($saves), 'Posts encontrados.');
     }
-    
+
     public function store(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
             'users_id' => 'required',
-            'publicacions_id' => 'required'
+            'publicacions_id' => 'required',
+            'title' => 'required',
+            'description' => 'required',
         ]);
-        if($validator->fails()){
-            return $this->sendError($validator->errors());       
+    
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors());
         }
+    
         $save = Save::create($input);
+    
         return $this->sendResponse(new SaveResource($save), 'Post Creado.');
     }
+    
    
     public function show($id)
     {
