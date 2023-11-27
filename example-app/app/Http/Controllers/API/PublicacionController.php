@@ -56,31 +56,6 @@ class PublicacionController extends BaseController
         return $this->sendResponse(new PublicacionResource($publicacion), 'Post encontrado.');
     }
 
-    /* public function update(Request $request, Publicacion $publicacion)
-     {
-         $input = $request->all();
-         $validator = Validator::make($input, [
-             'title' => 'required',
-             'subtitle'=> 'required',
-             'description'=> 'required',
-             'author'=> 'required',
-             'ubication'=> 'required',
-             'photo'=> 'required'
-         ]);
-         if($validator->fails()){
-             return $this->sendError($validator->errors());       
-         }
-         $publicacion->title = $input['title'];
-         $publicacion->subtitle= $input['subtitle'];
-         $publicacion->description = $input['description'];
-         $publicacion->author = $input['author'];
-         $publicacion->ubication = $input['ubication'];
-         $publicacion->photo = $input['photo'];
-         $publicacion->save();
-         
-         return $this->sendResponse(new PublicacionResource($publicacion), 'Post updated.');
-     }*/
-
     public function update(Request $request, $id)
     {
         $input = $request->all();
@@ -111,9 +86,17 @@ class PublicacionController extends BaseController
     }
 
 
-    public function destroy(Publicacion $publicacion)
+    public function destroy($id)
     {
-        $publicacion->delete();
-        return $this->sendResponse([], 'Registro Borrado.');
+        try {
+            $publicacion = Publicacion::findOrFail($id);
+            $publicacion->delete();
+    
+            return $this->sendResponse([], 'Publicación eliminada correctamente.');
+        } catch (\Exception $e) {
+            \Log::error('Error al procesar la solicitud', ['error' => $e->getMessage()]);
+            return $this->sendError('Error al procesar la solicitud', ['error' => $e->getMessage()], 500);
+        }
     }
 }
+    
